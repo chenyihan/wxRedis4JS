@@ -1,0 +1,18 @@
+{
+	"name":"wxRedis4JS",
+	"description":"A Redis Client for Javascript",
+	"version":"1.0.0-SNAPSHOT",
+	"author":{
+		"name":"Chen Yun Yun",
+		"email":"348800349@qq.com"
+	},
+	"contributors":[
+	    {
+	    	"name":"Chen Yun Yun",
+		    "email":"348800349@qq.com"
+		}
+	],
+	"keywords":[
+	    "js","javascript","redis","redis client","wx"
+	]
+}
