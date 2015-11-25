@@ -6,6 +6,9 @@
 		"name":"Chen Yun Yun",
 		"email":"348800349@qq.com"
 	},
+	"dependencies":{
+		"bignumber.js":"2.0.8"
+	},
 	"contributors":[
 	    {
 	    	"name":"Chen Yun Yun",
