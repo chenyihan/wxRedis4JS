@@ -2,15 +2,14 @@
  * http://usejsdoc.org/
  */
 'use strict';
-var utils = require('../util/utils.js');
-var ServerNode = require('../Node.js').ServerNode;
+var utils = require('../lib/util/utils.js');
+var ServerNode = require('../lib/Node.js').ServerNode;
 function test_md5() {
 	var key = 'Hello world';
 	var value = utils.hashByMD5(key);
 
 	console.log(value);
 }
-// test_md5();
 
 function test_hashCode() {
 	var number = 0.0265;
@@ -49,7 +48,6 @@ function test_hashCode() {
 
 }
 
-test_hashCode();
 function test_consistHash() {
 	var nodes = [];
 	var node1 = ServerNode();
@@ -108,32 +106,26 @@ function test_consistHash() {
 		console.log(r + ":" + result[r]);
 	}
 }
- test_consistHash();
-
-// function test_add() {
-// console.log(utils.add(4, 5));
-// var number1 = Number.MAX_VALUE;
-// var number2 = Number.MAX_VALUE;
-// var result = utils.add(number1, number2);
-// console.log(result);
-//
-// result = utils.add(number1, 1);
-// console.log(result);
-//
-// console.log(utils.add(Number.MAX_VALUE, Number.MIN_VALUE));
-// }
-//
-// test_add();
-//
-// function test_multi() {
-// console.log(utils.multi(Number.MAX_VALUE, 6));
-// }
-//
-// test_multi();
-
-// var BigNumber = require('bignumber.js');
-//
-// var x = new BigNumber(Number.MAX_VALUE);
-// var y = new BigNumber(Number.MAX_VALUE);
-// var z = x.times(y);
-// console.log(z);
+if (typeof describe == "function") {
+	describe("util", function() {
+		describe("#hashByMD5", function() {
+			it("should generate md5 code of this key", function() {
+				test_md5();
+			})
+		});
+		describe("#hashCode", function() {
+			it("generate hashcode", function() {
+				test_hashCode();
+			})
+		});
+		describe("#ConsistHash", function() {
+			it("test consistence hash algorithm", function() {
+				test_consistHash();
+			})
+		})
+	});
+} else {
+	test_md5();
+	test_hashCode();
+	test_consistHash();
+}

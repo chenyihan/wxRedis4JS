@@ -3,7 +3,7 @@
  */
 
 'use strict';
-var client = require('../client.js');
+var client = require('../lib/client.js');
 function BaseCmdTest() {
 	var host = "192.168.1.107";
 	var port = 6379;

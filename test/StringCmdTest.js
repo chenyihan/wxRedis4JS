@@ -39,4 +39,14 @@ StringCmdTest.prototype = {
 };
 
 var tester = new StringCmdTest();
-tester.test_set();
+if (typeof describe == "function") {
+	describe("StringCmd", function() {
+		describe("set", function() {
+			it("redis set command", function() {
+				tester.test_set();
+			})
+		})
+	})
+} else {
+	tester.test_set();
+}

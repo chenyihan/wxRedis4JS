@@ -9,6 +9,9 @@
 	"dependencies":{
 		"bignumber.js":"2.0.8"
 	},
+	"devDependencies":{
+		"mocha": "2.3.4"
+	},
 	"contributors":[
 	    {
 	    	"name":"Chen Yun Yun",
@@ -17,5 +20,8 @@
 	],
 	"keywords":[
 	    "js","javascript","redis","redis client","wx"
-	]
+	],
+	"scripts":{
+		"test":"mocha --check-leaks test/*.js"
+	}
 }
