@@ -13,4 +13,18 @@ function BaseCmdTest() {
 	});
 }
 
+BaseCmdTest.prototype = {
+	dealCmdResult : function(resp, err, assert) {
+		if (resp) {
+			console.log(resp);
+			if (typeof assert == "function") {
+				assert();
+			}
+		}
+		if (err) {
+			console.log(err.message || err.code);
+		}
+	}
+}
+
 module.exports.BaseCmdTest = BaseCmdTest;
