@@ -15,9 +15,9 @@ function BaseCmdTest() {
 
 BaseCmdTest.prototype = {
 	dealCmdResult : function(resp, err, assert) {
-		if (resp) {
+		if (resp !== null && resp !== undefined) {
 			console.log(resp);
-			if (typeof assert == "function") {
+			if (typeof assert === "function") {
 				assert();
 			}
 		}
@@ -25,6 +25,6 @@ BaseCmdTest.prototype = {
 			console.log(err.message || err.code);
 		}
 	}
-}
+};
 
 module.exports.BaseCmdTest = BaseCmdTest;
