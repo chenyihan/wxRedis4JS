@@ -5,6 +5,9 @@
 'use strict';
 var utils = require('util'), baseCmdTest = require('./BaseCmdTest'), assert = require("assert"), RedisKeyword = require("../lib/Keywords.js");
 function StringCmdTest() {
+	if (!(this instanceof StringCmdTest)) {
+		return new StringCmdTest();
+	}
 	baseCmdTest.BaseCmdTest.call(this);
 }
 utils.inherits(StringCmdTest, baseCmdTest.BaseCmdTest);
@@ -398,9 +401,9 @@ StringCmdTest.prototype = {
 			});
 		});
 
-		// this.client.ttl('key1', function(resp, err) {
-		// console.log(resp);
-		// });
+		this.client.ttl("key1", function(resp, err) {
+			console.log(resp);
+		});
 	},
 	test_psetEX : function() {
 		this.client.flushAll();
@@ -417,9 +420,9 @@ StringCmdTest.prototype = {
 			});
 		});
 
-		// this.client.pTTL('key1', function(resp, err) {
-		// console.log(resp);
-		// });
+		this.client.pTTL('key1', function(resp, err) {
+			console.log(resp);
+		});
 	},
 	test_setrange : function() {
 		this.client.flushAll()
