@@ -166,6 +166,84 @@ StringCmdTest.prototype = {
 				function(resp, err) {
 					console.log(resp);
 				});
+	},
+	test_incr : function() {
+		this.client.flushAll();
+		this.client.incr("key1", function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 1);
+			});
+		});
+
+		this.client.set("key2", 43);
+		this.client.incr("key2", function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 44);
+			});
+		});
+
+	},
+	test_incrby : function() {
+		this.client.flushAll();
+
+		this.client.incrBy("key1", 2, function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 2);
+			});
+		});
+
+		this.client.set("key2", 43);
+		this.client.incrBy("key2", 4, function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 47);
+			});
+		});
+	},
+	test_incrbyfloat : function() {
+		this.client.flushAll();
+
+		this.client.incrByFloat("key1", 2.1, function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 2.1);
+			});
+		});
+
+		this.client.set("key2", 43);
+		this.client.incrByFloat("key2", 3.11, function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 46.11);
+			});
+		});
+	},
+	test_decr : function() {
+		this.client.flushAll();
+		this.client.decr('key1', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, -1);
+			});
+		});
+
+		this.client.set('key2', 43);
+		this.client.decr('key2', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 42);
+			});
+		});
+	},
+	test_decrby : function() {
+		this.client.flushAll();
+		this.client.decrBy('key1', 2, function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, -2);
+			});
+		});
+
+		this.client.set('key2', 43)
+		this.client.decrBy('key2', 2, function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 41);
+			});
+		});
 	}
 };
 
@@ -212,14 +290,45 @@ if (typeof describe === "function") {
 				tester.test_bit();
 			})
 		});
+		describe("#incr", function() {
+			it("redis incr command", function() {
+				tester.test_incr();
+			})
+		});
+		describe("#incrby", function() {
+			it("redis incrby command", function() {
+				tester.test_incrby();
+			})
+		});
+		describe("#incrbyfloat", function() {
+			it("redis incrbyfloat command", function() {
+				tester.test_incrbyfloat();
+			})
+		});
+
+		describe("#decr", function() {
+			it("redis decr command", function() {
+				tester.test_decr();
+			})
+		});
+		describe("#decrby", function() {
+			it("redis decrby command", function() {
+				tester.test_decrby();
+			})
+		});
 	});
 } else {
-	// tester.test_set();
-	// tester.test_get();
-	// tester.test_del();
-	// tester.test_keys();
-	// tester.test_exists();
-	// tester.test_append();
-	// tester.test_bit();
+	tester.test_set();
+	tester.test_get();
+	tester.test_del();
+	tester.test_keys();
+	tester.test_exists();
+	tester.test_append();
+	tester.test_bit();
 	tester.test_bitOp();
+	tester.test_incr();
+	tester.test_incrby();
+	tester.test_incrbyfloat();
+	tester.test_decr();
+	tester.test_decrby();
 }
