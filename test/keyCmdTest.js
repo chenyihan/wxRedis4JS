@@ -3,7 +3,7 @@
  */
 'use strict';
 var Client = require('../lib/client.js').Client;
-var utils = require('util'), baseCmdTest = require('./BaseCmdTest'), assert = require("assert"), params = require("../lib/params.js");
+var utils = require('util'), baseCmdTest = require('./baseCmdTest'), assert = require("assert"), params = require("../lib/params.js");
 function KeyCmdTest() {
 	if (!(this instanceof KeyCmdTest)) {
 		return new KeyCmdTest();
@@ -440,18 +440,18 @@ if (typeof describe === "function") {
 		});
 	});
 } else {
-	// tester.test_dump();
-	// tester.test_expire();
-	// tester.test_expireAt();
-	// tester.test_migrate();
-	// tester.test_move();
-	// tester.test_object();
-	// tester.test_persist();
-	// tester.test_pexpire();
-	// tester.test_PExpireAt();
-	// tester.test_randomKey();
-	// tester.test_rename();
-	// tester.test_renameNX();
-	// tester.test_restore();
+	tester.test_dump();
+	tester.test_expire();
+	tester.test_expireAt();
+	tester.test_migrate();
+	tester.test_move();
+	tester.test_object();
+	tester.test_persist();
+	tester.test_pexpire();
+	tester.test_PExpireAt();
+	tester.test_randomKey();
+	tester.test_rename();
+	tester.test_renameNX();
+	tester.test_restore();
 	tester.test_sort();
 }

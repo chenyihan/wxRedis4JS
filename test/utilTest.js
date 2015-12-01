@@ -3,7 +3,7 @@
  */
 'use strict';
 var utils = require('../lib/util/utils.js');
-var ServerNode = require('../lib/Node.js').ServerNode;
+var ServerNode = require('../lib/node.js').ServerNode;
 function test_md5() {
 	var key = 'Hello world';
 	var value = utils.hashByMD5(key);

@@ -3,7 +3,7 @@
  */
 
 'use strict';
-var utils = require('util'), baseCmdTest = require('./BaseCmdTest'), assert = require("assert"), RedisKeyword = require("../lib/Keywords.js");
+var utils = require('util'), baseCmdTest = require('./baseCmdTest'), assert = require("assert"), RedisKeyword = require("../lib/keywords.js");
 function StringCmdTest() {
 	if (!(this instanceof StringCmdTest)) {
 		return new StringCmdTest();
