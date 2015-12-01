@@ -252,6 +252,88 @@ KeyCmdTest.prototype = {
 				assert.equal(resp == 'key1' || resp == 'key2', true);
 			});
 		});
+	},
+	test_rename : function() {
+		this.client.flushAll();
+
+		this.client.rename('key1', 'key2', function(resp, err) {
+			console.log(err.message);
+		});
+
+		this.client.set('key1', 'value1');
+		this.client.rename('key1', 'key2', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 'OK');
+			});
+		});
+
+		this.client.exists('key1', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, false);
+			});
+		});
+
+		this.client.exists('key2', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, true);
+			});
+		});
+
+		this.client.set('key3', 'value3');
+		this.client.set('key4', 'value4');
+
+		this.client.rename('key3', 'key4', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 'OK');
+			});
+		});
+
+		this.client.get('key3', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 'null');
+			});
+		});
+
+		this.client.get('key4', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 'value3');
+			});
+		});
+	},
+	test_renameNX : function() {
+		this.client.flushAll();
+
+		this.client.renameNX('key1', 'key2', function(resp, err) {
+			console.log(err.message);
+		});
+
+		this.client.set('key1', 'value1');
+		this.client.set('key2', 'value2');
+
+		this.client.renameNX('key1', 'key2', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 0);
+			});
+		});
+
+		this.client.renameNX('key1', 'key3', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 1);
+			});
+		});
+	},
+	test_restore : function() {
+		var cli = this.client;
+		cli.flushAll();
+
+		cli.set('key1', 'value1');
+		cli.dump('key1', function(resp, err) {
+			cli.restore('key2', resp, 0, false, function(resp, err) {
+				baseProto.dealCmdResult(resp, err, function() {
+					assert.equal(resp, 'OK');
+				});
+			});
+		});
 	}
 };
 
@@ -308,16 +390,34 @@ if (typeof describe === "function") {
 				tester.test_randomKey();
 			});
 		});
+		describe("#rename", function() {
+			it("Redis rename command", function() {
+				tester.test_rename();
+			});
+		});
+		describe("#renameNX", function() {
+			it("Redis renameNX command", function() {
+				tester.test_renameNX();
+			});
+		});
+		describe("#restore", function() {
+			it("Redis restore command", function() {
+				tester.test_restore();
+			});
+		});
 	});
 } else {
-	tester.test_dump();
-	tester.test_expire();
-	tester.test_expireAt();
-	tester.test_migrate();
-	tester.test_move();
-	tester.test_object();
-	tester.test_persist();
-	tester.test_pexpire();
-	tester.test_PExpireAt();
-	tester.test_randomKey();
+	// tester.test_dump();
+	// tester.test_expire();
+	// tester.test_expireAt();
+	// tester.test_migrate();
+	// tester.test_move();
+	// tester.test_object();
+	// tester.test_persist();
+	// tester.test_pexpire();
+	// tester.test_PExpireAt();
+	// tester.test_randomKey();
+	// tester.test_rename();
+	// tester.test_renameNX();
+	tester.test_restore();
 }
