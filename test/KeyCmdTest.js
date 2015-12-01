@@ -3,7 +3,7 @@
  */
 'use strict';
 var Client = require('../lib/client.js').Client;
-var utils = require('util'), baseCmdTest = require('./BaseCmdTest'), assert = require("assert");
+var utils = require('util'), baseCmdTest = require('./BaseCmdTest'), assert = require("assert"), params = require("../lib/params.js");
 function KeyCmdTest() {
 	if (!(this instanceof KeyCmdTest)) {
 		return new KeyCmdTest();
@@ -334,6 +334,39 @@ KeyCmdTest.prototype = {
 				});
 			});
 		});
+	},
+	test_sort : function() {
+		this.client.flushAll();
+
+		this.client.lPush('key1',
+				[ '25', '3', '5', '4', '55', '34', '15', '2' ]);
+		this.client.sort('key1', null, null, function(resp, err) {
+			console.log(resp);
+		});
+
+		this.client.sort('key1', new params.SortingParams().desc(), null,
+				function(resp, err) {
+					console.log(resp);
+				});
+
+		this.client.sort('key1', new params.SortingParams().alpha(), null,
+				function(resp, err) {
+					console.log(resp);
+				});
+
+		this.client.sort('key1', new params.SortingParams().limit(2, 4), null,
+				function(resp, err) {
+					console.log(resp);
+				});
+
+		this.client.flushAll();
+		this.client.lPush('key1',
+				[ '25', '3', '5', '4', '55', '34', '15', '2' ]);
+
+		this.client.sort('key1', null, 'key2', function(resp, err) {
+			console.log(resp);
+		});
+
 	}
 };
 
@@ -419,5 +452,6 @@ if (typeof describe === "function") {
 	// tester.test_randomKey();
 	// tester.test_rename();
 	// tester.test_renameNX();
-	tester.test_restore();
+	// tester.test_restore();
+	tester.test_sort();
 }
