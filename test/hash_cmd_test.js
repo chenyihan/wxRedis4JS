@@ -3,7 +3,7 @@
  */
 
 var Client = require('../lib/client.js').Client;
-var utils = require('util'), baseCmdTest = require('./baseCmdTest'), assert = require("assert"), params = require("../lib/params.js");
+var utils = require('util'), baseCmdTest = require('./base_cmd_test'), assert = require("assert"), params = require("../lib/params.js");
 function HashCmdTest() {
 	if (!(this instanceof HashCmdTest)) {
 		return new HashCmdTest();
