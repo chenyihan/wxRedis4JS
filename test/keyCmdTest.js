@@ -367,6 +367,80 @@ KeyCmdTest.prototype = {
 			console.log(resp);
 		});
 
+	},
+	test_type : function() {
+		this.client.flushAll();
+		this.client.set('key1', 'value1');
+
+		this.client.type('key1', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 'string');
+			});
+		});
+
+		this.client.lPush('llkey1', 'llvalue1');
+		this.client.type('llkey1', function(resp, err) {
+			baseProto.dealCmdResult(resp, err, function() {
+				assert.equal(resp, 'list');
+			});
+		});
+
+		// self.client.sAdd('skey1', 'svalue1')
+		// resp = self.client.type('skey1')
+		// self.assertEquals(resp, 'set')
+		//        
+		// scoreMember = ScoreMemberPair(1, 'zvalue1')
+		// self.client.zAdd('zkey1', scoreMember);
+		//        
+		// resp = self.client.type('zkey1')
+		// self.assertEquals(resp, 'zset')
+		//        
+		// self.client.hSet('hkey1', 'hfield1', 'hvalue1')
+		// resp = self.client.type('hkey1')
+		// self.assertEquals(resp, 'hash')
+	},
+	test_scan : function() {
+		this.client.flushAll();
+		this.client.set('key1', 'value1');
+		this.client.set('key2', 'value2');
+		this.client.set('key3', 'value3');
+		this.client.set('key4', 'value4');
+		this.client.set('key5', 'value5');
+		this.client.set('key6', 'value6');
+		this.client.set('key7', 'value7');
+		this.client.set('key8', 'value8');
+		this.client.set('key9', 'value9');
+		this.client.set('key10', 'value10');
+		this.client.set('key11', 'value11');
+		this.client.set('key12', 'value12');
+		this.client.set('key13', 'value13');
+		this.client.set('key14', 'value14');
+		this.client.set('key15', 'value15');
+		this.client.set('key16', 'value16');
+		this.client.set('key17', 'value17');
+		this.client.set('key18', 'value18');
+		this.client.set('key19', 'value19');
+		this.client.set('key20', 'value20');
+
+		var count = 5;
+		var cursor = 0;
+		this.client.scan(cursor, new params.ScanParams().count(count),
+				function(resp, err) {
+					console.log("cursor:" + resp.cursor);
+					console.log("results:" + resp.results);
+				});
+
+		this.client.scan(cursor, new params.ScanParams().count(count),
+				function(resp, err) {
+					console.log("cursor:" + resp.cursor);
+					console.log("results:" + resp.results);
+				});
+
+		this.client.scan(cursor, new params.ScanParams().count(count),
+				function(resp, err) {
+					console.log("cursor:" + resp.cursor);
+					console.log("results:" + resp.results);
+				});
 	}
 };
 
@@ -438,6 +512,16 @@ if (typeof describe === "function") {
 				tester.test_restore();
 			});
 		});
+		describe("#type", function() {
+			it("Redis type command", function() {
+				tester.test_type();
+			});
+		});
+		describe("#scan", function() {
+			it("Redis scan command", function() {
+				tester.test_scan();
+			});
+		});
 	});
 } else {
 	tester.test_dump();
@@ -454,4 +538,6 @@ if (typeof describe === "function") {
 	tester.test_renameNX();
 	tester.test_restore();
 	tester.test_sort();
+	tester.test_type();
+	tester.test_scan();
 }
