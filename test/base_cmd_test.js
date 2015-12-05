@@ -5,7 +5,7 @@
 'use strict';
 var client = require('../lib/client.js');
 function BaseCmdTest() {
-	var host = "192.168.1.107";
+	var host = "192.168.1.106";
 	var port = 6379;
 	this.client = new client.Client({
 		host : host,
