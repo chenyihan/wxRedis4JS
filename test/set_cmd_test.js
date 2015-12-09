@@ -314,7 +314,7 @@ SetCmdTest.prototype = {
 };
 var tester = new SetCmdTest();
 if (typeof describe === "function") {
-	describe("SetCmdTest", function() {
+	describe("SetCmd", function() {
 		describe("#sadd", function() {
 			it("Redis sadd command", function() {
 				tester.test_sadd();

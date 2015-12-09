@@ -305,7 +305,7 @@ HashCmdTest.prototype = {
 };
 var tester = new HashCmdTest();
 if (typeof describe === "function") {
-	describe("HashCmdTest", function() {
+	describe("HashCmd", function() {
 		describe("#hSet", function() {
 			it("Redis hSet command", function() {
 				tester.test_hset();

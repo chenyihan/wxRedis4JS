@@ -377,7 +377,7 @@ ListCmdTest.prototype = {
 };
 var tester = new ListCmdTest();
 if (typeof describe === "function") {
-	describe("ListCmdTest", function() {
+	describe("ListCmd", function() {
 		describe("#lpush", function() {
 			it("Redis lpush command", function() {
 				tester.test_lpush();

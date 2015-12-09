@@ -446,7 +446,7 @@ KeyCmdTest.prototype = {
 
 var tester = new KeyCmdTest();
 if (typeof describe === "function") {
-	describe("KeyCmdTest", function() {
+	describe("KeyCmd", function() {
 		describe("#dump", function() {
 			it("Redis dump command", function() {
 				tester.test_dump();
