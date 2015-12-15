@@ -29,11 +29,12 @@ SetCmdTest.prototype = {
 			});
 		});
 
-		this.client.sAdd('skey1', 'svalue2', 'svalue3', function(resp, err) {
-			baseProto.dealCmdResult(resp, err, function() {
-				assert.equal(resp, 2);
-			});
-		});
+		this.client.sAdd('skey1', [ 'svalue2', 'svalue3' ],
+				function(resp, err) {
+					baseProto.dealCmdResult(resp, err, function() {
+						assert.equal(resp, 2);
+					});
+				});
 	},
 	test_spop : function() {
 		this.client.flushAll();
@@ -400,5 +401,5 @@ if (typeof describe === "function") {
 	tester.test_srem();
 	tester.test_suion();
 	tester.test_suionstore();
-	 tester.test_sscan();
+	tester.test_sscan();
 }
